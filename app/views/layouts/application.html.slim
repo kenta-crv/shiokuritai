@@ -38,15 +38,22 @@ html
              ul
                  li
                    - if user_signed_in?
-                    = link_to '相談者ログアウト', destroy_user_session_path, method: :delete , :class=>"col-md"
+                    = link_to "マイページ", user_path(current_user)
                    - else
                     = link_to '相談者ログイン', new_user_session_path , :class=>"col-md"
                  li
                    - if member_signed_in?
-                    = link_to '参画企業ログアウト', destroy_member_session_path, method: :delete , :class=>"col-md"
+                    = link_to 'マイページ', member_path(current_member)
                    - else
                     = link_to '参画企業ログイン', new_member_session_path , :class=>"col-md"
-
+                 li
+                   - if worker_signed_in?
+                    = link_to 'マイページ', worker_path(current_worker)
+                   - else
+                    = link_to '作業者ログイン', new_worker_session_path , :class=>"col-md"
+                 li
+                   - if admin_signed_in?
+                    = link_to 'マイページ', admin_path(current_admin)
 
         nav.globalMenuSp
            ul
@@ -64,14 +71,23 @@ html
               = link_to  '問い合わせ', '/contact' , :class=>"col-md"
             li
               - if user_signed_in?
-               = link_to '相談者ログアウト', destroy_user_session_path, method: :delete , :class=>"col-md"
+               = link_to "マイページ", user_path(current_user)
               - else
                = link_to '相談者ログイン', new_user_session_path , :class=>"col-md"
             li
               - if member_signed_in?
-               = link_to '参画企業ログアウト', destroy_member_session_path, method: :delete , :class=>"col-md"
+               = link_to 'マイページ', member_path(current_member)
               - else
                = link_to '参画企業ログイン', new_member_session_path , :class=>"col-md"
+              - if worker_signed_in?
+            li
+              - if worker_signed_in?
+               = link_to 'マイページ', worker_path(current_worker)
+              - else
+               = link_to '作業者ログイン', new_worker_session_path , :class=>"col-md"
+            li
+              - if admin_signed_in?
+               = link_to 'マイページ', admin_path(current_admin)
 
 
 

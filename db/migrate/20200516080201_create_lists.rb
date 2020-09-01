@@ -29,7 +29,6 @@ class CreateLists < ActiveRecord::Migration[5.2]
       t.string :holiday #休日
       t.string :business_hour #営業時間
       t.string :price #価格
-
       t.references :admin
       t.timestamps
     end

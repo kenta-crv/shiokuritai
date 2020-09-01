@@ -1,0 +1,7 @@
+<p><%= @email %>様</p>
+
+<p>弁護士一括見積りサイト『士送隊』に会員登録頂きありがとう御座います。</p>
+
+<%= link_to "メール認証", confirmation_url(@resource, confirmation_token: @token) %>
+
+<p>上記よりアクセスし、メール認証を完了させて下さい。</p>

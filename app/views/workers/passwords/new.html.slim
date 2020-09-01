@@ -1,0 +1,25 @@
+br
+br
+.top-wrapper.center
+  h2.headline
+      | パスワードをお忘れですか？
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    = render "devise/shared/error_messages", resource: resource
+    table.company
+      colgroup
+        col[width="40%"]
+        col[width="60%"]
+        |  　
+      tr
+        th.arrow_box
+          | ログインアドレス
+          .label
+            | 必須
+        td
+         = f.email_field :email, autofocus: true, autocomplete: "email"
+
+      tr
+        td.center[colspan="2"]
+          =f.submit "パスワードを再設定手順をお送りします。", class:"btn btn-danger"
+  .center
+    = render "workers/shared/links"

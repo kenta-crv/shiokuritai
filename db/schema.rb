@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_22_134347) do
+ActiveRecord::Schema.define(version: 2020_08_28_162312) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -56,6 +56,19 @@ ActiveRecord::Schema.define(version: 2020_08_22_134347) do
     t.string "business_hour"
     t.string "price"
     t.string "explanation"
+    t.string "bookmark"
+    t.string "company_yomi"
+    t.string "name_yomi"
+    t.string "title_title"
+    t.string "title_image"
+    t.string "title_detail"
+    t.string "profile_title"
+    t.string "profile_image"
+    t.string "profile_detail"
+    t.string "address_image"
+    t.string "address_detail"
+    t.string "consultation_fee"
+    t.string "commitment"
     t.integer "admin_id"
     t.integer "user_id"
     t.integer "member_id"
@@ -125,14 +138,29 @@ ActiveRecord::Schema.define(version: 2020_08_22_134347) do
     t.string "number_of_business"
     t.string "number_of_store"
     t.string "explanation"
-    t.string "access"
     t.string "holiday"
     t.string "business_hour"
     t.string "price"
     t.integer "admin_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "access"
+    t.string "bookmark"
+    t.string "company_yomi"
+    t.string "name_yomi"
+    t.string "title_title"
+    t.string "title_image"
+    t.string "title_detail"
+    t.string "profile_title"
+    t.string "profile_image"
+    t.string "profile_detail"
+    t.string "address_image"
+    t.string "address_detail"
+    t.string "consultation_fee"
+    t.string "commitment"
+    t.integer "worker_id"
     t.index ["admin_id"], name: "index_lists_on_admin_id"
+    t.index ["worker_id"], name: "index_lists_on_worker_id"
   end
 
   create_table "lps", force: :cascade do |t|
@@ -234,6 +262,23 @@ ActiveRecord::Schema.define(version: 2020_08_22_134347) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "workers", force: :cascade do |t|
+    t.string "user_name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_workers_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_workers_on_reset_password_token", unique: true
   end
 
 end

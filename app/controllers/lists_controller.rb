@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+before_action :authenticate_worker!, only: [:new, :edit]
   def index
     @q = List.ransack(params[:q])
     @lists = @q.result
@@ -55,17 +56,13 @@ private
   params.require(:list).permit(
     :company, #会社名
     :name, #
-    :tel_front,
-    :tel_middle,
-    :tel_back,
-    :fax_front,
-    :fax_middle,
-    :fax_back,
+    :tel,
+    :fax,
     :postnumber, #郵便番号
     :prefecture,
     :city,
     :town,
-    :town_number,
+    :chome,
     :building,
     :mail, #URL
     :url, #URL
@@ -84,8 +81,8 @@ private
     :access, #アクセス
     :holiday, #休日
     :business_hour, #営業時間
-    :price #価格
+    :price, #価格
 
-    )
+    )&.merge(worker: current_worker)
   end
 end

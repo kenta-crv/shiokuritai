@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
 
   # 例外処理
 
-      rescue_from ActiveRecord::RecordNotFound, with: :render_404 unless Rails.env.development?
-      rescue_from ActionController::RoutingError, with: :render_404 unless Rails.env.development?
-      rescue_from Exception, with: :render_500 unless Rails.env.development?
+   rescue_from ActiveRecord::RecordNotFound, with: :render_404 unless Rails.env.development?
+   rescue_from ActionController::RoutingError, with: :render_404 unless Rails.env.development?
+   rescue_from Exception, with: :render_500 unless Rails.env.development?
 
    def set_host
       Rails.application.routes.default_url_options[:host] = request.host_with_port
@@ -43,6 +43,8 @@ private
       "/" #先々一覧を見れるアナリティクスへ
     when Member
       "/companies/new"
+    when Worker
+      "/lists/new"
     else
       "/"
     end
@@ -56,6 +58,8 @@ private
     when Admin, :admin, :admins
       "/"
     when Member, :member, :members
+      "/"
+    when Worker, :worker, :workers
       "/"
     else
        super

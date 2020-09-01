@@ -29,7 +29,7 @@ before_action :authenticate_admin!, only: :index
   end
 
   def edit
-    @company = Company.find(params[:id])
+    @company = Company.find(member_id: current_member.id)
     #@company.member_id = current_member.id
   end
 
@@ -99,7 +99,22 @@ private
     :access, #アクセス
     :holiday, #休日
     :business_hour, #営業時間
-    :price #価格
+    :price, #価格
+
+    :bookmark,
+    :company_yomi,
+    :name_yomi,
+    :title_title,
+    :title_image,
+    :title_detail,
+    :profile_title,
+    :profile_image,
+    :profile_detail,
+    :address_image,
+    :address_detail,
+    :consultation_fee, #相談料
+    :commitment
+
   )#.merge(member_id: @member_id)
   end
 end

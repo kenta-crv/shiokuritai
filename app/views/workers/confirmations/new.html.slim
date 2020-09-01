@@ -1,0 +1,24 @@
+br
+br
+.top-wrapper.center
+  h2.headline
+      | パスワードの確認手順を再送信
+  = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+   = render "devise/shared/error_messages", resource: resource
+   table.company
+     colgroup
+       col[width="40%"]
+       col[width="60%"]
+       |  　
+     tr
+       th.arrow_box
+         | ログインアドレス
+         .label
+           | 必須
+       td
+        = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+     tr
+       td.center[colspan="2"]
+         =f.submit "確認手順を再送信", class:"btn btn-danger"
+  .center
+   = render "workers/shared/links"

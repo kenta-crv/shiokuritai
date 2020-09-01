@@ -83,7 +83,6 @@ br
         td.arrow_box
           | 料金
         td = @list.price
-      tr
         td.arrow_box
           | アクセス
         td = @list.access
@@ -94,6 +93,14 @@ br
         td.arrow_box
           | 店舗名
         td = @list.number_of_store
+      -if admin_signed_in? || member_signed_in?
+      tr
+        td.arrow_box
+          | 作業者名
+        td = @list.worker&.user_name
+        td.arrow_box
+          | 最終更新日
+        td = @list.updated_at
 
 
  h2.headline 企業概要

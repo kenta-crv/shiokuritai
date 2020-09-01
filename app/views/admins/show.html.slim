@@ -13,6 +13,38 @@ br
           | ログインアドレス
         td
           = @admin.email
+    h2.headline
+       | 実施件数
+    table.company
+       colgroup
+         col[width="20%"]
+         col[width="20%"]
+         col[width="20%"]
+         |  　
+       tr
+         th
+           | 担当者名
+         th
+           | 本日の実施件数
+         th
+           | 今週の実施件数
+         th
+           | 今月の実施件数
+         th
+           | 総合件数
+       tr
+       - @workers.each do |worker|
+         th
+           = worker.user_name
+         td
+           = worker.lists.where('updated_at > ?', Time.current.beginning_of_day).where('updated_at < ?', Time.current.end_of_day).count
+         td
+           = worker.lists.where('updated_at > ?', Time.current.beginning_of_week).where('updated_at < ?', Time.current.end_of_week).count
+         td
+           = worker.lists.where('updated_at > ?', Time.current.beginning_of_month).where('updated_at < ?', Time.current.end_of_month).count
+         td
+           = worker.lists.all.count
+
 
     br
     = link_to "アカウント情報編集", edit_admin_registration_path, class:"btn btn-danger"

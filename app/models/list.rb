@@ -1,4 +1,5 @@
 class List < ApplicationRecord
+  belongs_to :worker
   mount_uploader :image, ImagesUploader
 
   def self.import(file)

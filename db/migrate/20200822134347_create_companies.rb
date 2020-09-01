@@ -36,6 +36,20 @@ class CreateCompanies < ActiveRecord::Migration[5.2]
         t.string :business_hour #営業時間
         t.string :price #価格
 
+        t.string :bookmark
+        t.string :company_yomi
+        t.string :name_yomi
+        t.string :title_title
+        t.string :title_image
+        t.string :title_detail
+        t.string :profile_title
+        t.string :profile_image
+        t.string :profile_detail
+        t.string :address_image
+        t.string :address_detail
+        t.string :consultation_fee #相談料
+        t.string :commitment
+
         t.references :admin
         t.references :user
         t.references :member

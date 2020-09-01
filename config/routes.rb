@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     registrations: 'admins/registrations',
     sessions: 'admins/sessions'
   }
+
   resources :admins, only: [:show]
   #使用者アカウント
   devise_for :users, controllers: {
@@ -11,6 +12,16 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
   resources :users, only: [:show]
+
+  resources :admins, only: [:show]
+  #ワーカーアカウント
+  devise_for :workers, controllers: {
+    registrations: 'workers/registrations',
+    sessions: 'workers/sessions',
+    confirmations: 'workers/confirmations',
+    passwords: 'workers/passwords',
+  }
+  resources :workers, only: [:show]
   #メンバーアカウント
   devise_for :members, controllers: {
     registrations: 'members/registrations',

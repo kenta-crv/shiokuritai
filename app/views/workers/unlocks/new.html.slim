@@ -1,0 +1,24 @@
+br
+br
+.top-wrapper.center
+  h2.headline
+      | 参画会員ログイン
+  = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+   = render "devise/shared/error_messages", resource: resource
+   table.company
+      colgroup
+        col[width="40%"]
+        col[width="60%"]
+        |  　
+      tr
+        th.arrow_box
+          | ログインアドレス
+          .label
+            | 必須
+        td
+          = f.email_field :email, autofocus: true, autocomplete: "email"
+      tr
+        td.center[colspan="2"]
+          =f.submit "アカウントロックを解除する", class:"btn btn-danger"
+   .center
+    = render "members/shared/links"
