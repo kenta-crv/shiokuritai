@@ -29,7 +29,7 @@ before_action :authenticate_admin!, only: :index
   end
 
   def edit
-    @company = Company.find(member_id: current_member.id)
+    @company = Company.find_by(member_id: current_member.id)
     #@company.member_id = current_member.id
   end
 
