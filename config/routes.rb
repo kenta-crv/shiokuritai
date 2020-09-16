@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   resources :companies do
     collection do
       get :pay
+      post :get_point
       post :confirm
       post :thanks
     end

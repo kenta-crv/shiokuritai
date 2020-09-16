@@ -69,6 +69,11 @@ before_action :authenticate_admin!, only: :index
  def pay
  end
 
+ def get_point
+  payment = params[:payment]
+  point = params[:point]
+ end
+
 private
  def company_params
   params.require(:company).permit(
