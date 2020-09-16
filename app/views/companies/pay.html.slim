@@ -14,7 +14,7 @@ br
         td
           .paypal-button-container.center id="paypal-button-container-#{i}"
           script
-            | paypal.Buttons({ style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'pay', }, createOrder: function(data, actions) { return actions.order.create({ purchase_units: [{ amount: { value: #{pay[:payment]} } }] }); }, onApprove: function(data, actions) { return actions.order.capture().then(function(details) { let url = '/companies/get_point'; $.ajax({ url: url, type: "POST", data: { payment: #{pay[:payment]}, point: #{pay[:point]} }}).done(function () { alert("決済が完了しました。#{pay[:point]}ポイント獲得しました。"); }).fail(function () { alert('エラーが発生しました') }); }); }}).render("#paypal-button-container-#{i}");
+            | paypal.Buttons({ style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'pay', }, createOrder: function(data, actions) { return actions.order.create({ purchase_units: [{ amount: { value: #{pay[:payment]} } }] }); }, onApprove: function(data, actions) { return actions.order.capture().then(function(details) { let url = '/companies/get_point'; $.ajax({ url: url, type: "POST", data: { payment: #{pay[:payment]}, point: #{pay[:point]} }}).done(function () { alert("決済が完了しました。#{pay[:point]}ポイント獲得しました。\nマイページでご確認ください。"); }).fail(function () { alert('エラーが発生しました') }); }); }}).render("#paypal-button-container-#{i}");
 .center
   = link_to "マイページに戻る", "/members/#{current_member.id}", class:"btn btn-danger"
 br
