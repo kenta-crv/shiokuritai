@@ -1,21 +1,22 @@
+
 .tops-wrapper
 br
   h2.headline  ポイント購入支払い
   p.center 士送隊へご登録頂きありがとうございます。士送隊では、クレジットカードにてポイントをご購入頂けます。決済は以下よりお進み下さい。
   br
-  table.company
-   tr
-    th
-     | #{@pay_arr[:payment]}円分の提案ポイントを購入
-   tr
-    td
-     #paypal-button-container.center
-     script[src="https://www.paypal.com/sdk/js?client-id=sb&currency=JPY" data-sdk-integration-source="button-factory"]
-     script
-       | paypal.Buttons({ style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'pay', }, createOrder: function(data, actions) { return actions.order.create({ purchase_units: [{ amount: { value: #{@pay_arr[:payment]} } }] }); }, onApprove: function(data, actions) { return actions.order.capture().then(function(details) { let url = '/companies/get_point'; $.ajax({ url: url, type: "POST", data: { payment: #{@pay_arr[:payment]}, point: #{@pay_arr[:point]} }}).done(function () { alert(); }).fail(function () { alert('エラーが発生しました') }); }); }}).render('#paypal-button-container');
-
+  script[src="https://www.paypal.com/sdk/js?client-id=sb&currency=JPY" data-sdk-integration-source="button-factory"]
+  - @pay_arr.each_with_index do |pay, i|
+    table.company
+      tr
+        th
+          | #{pay[:payment].to_s(:delimited)}円分の提案ポイントを購入
+      tr
+        td
+          .paypal-button-container.center id="paypal-button-container-#{i}"
+          script
+            | paypal.Buttons({ style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'pay', }, createOrder: function(data, actions) { return actions.order.create({ purchase_units: [{ amount: { value: #{pay[:payment]} } }] }); }, onApprove: function(data, actions) { return actions.order.capture().then(function(details) { let url = '/companies/get_point'; $.ajax({ url: url, type: "POST", data: { payment: #{pay[:payment]}, point: #{pay[:point]} }}).done(function () { alert("決済が完了しました。#{pay[:point]}ポイント獲得しました。"); }).fail(function () { alert('エラーが発生しました') }); }); }}).render("#paypal-button-container-#{i}");
 .center
- = link_to "マイページに戻る", "/members/#{current_member.id}", class:"btn btn-danger"
+  = link_to "マイページに戻る", "/members/#{current_member.id}", class:"btn btn-danger"
 br
 br
 br

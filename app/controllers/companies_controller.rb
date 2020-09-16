@@ -67,6 +67,24 @@ before_action :authenticate_admin!, only: :index
  end
 
  def pay
+  @pay_arr = [
+    {
+      payment: 70000, 
+      point: 100
+    },
+    {
+      payment: 37500, 
+      point: 50
+    },
+    {
+      payment: 24000, 
+      point: 30
+    },
+    {
+      payment: 9000, 
+      point: 10
+    }
+  ]
  end
 
  def get_point
