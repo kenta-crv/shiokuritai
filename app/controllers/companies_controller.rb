@@ -67,6 +67,7 @@ before_action :authenticate_admin!, only: :index
  end
 
  def pay
+  # ポイントの料金を変更するときはここを書き換える
   @pay_arr = [
     {
       payment: 70000, 
@@ -88,8 +89,9 @@ before_action :authenticate_admin!, only: :index
  end
 
  def get_point
-  payment = params[:payment]
-  point = params[:point]
+  get_point = current_member.point + params[:point].to_i
+  current_member.update(point: get_point)
+  return
  end
 
 private

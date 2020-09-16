@@ -25,8 +25,8 @@ br
       tr
         th
           | 残りポイント
-        td
-          | 9月25日よりご利用頂けます。
+        td 
+          | #{@member.point.to_s}ポイント
 
     br
     = link_to "アカウント情報編集", edit_member_registration_path, class:"btn btn-danger"
