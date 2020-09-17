@@ -29,7 +29,7 @@ before_action :authenticate_admin!, only: :index
   end
 
   def edit
-    @company = Company.find(member_id: current_member.id)
+    @company = Company.find_by(member_id: current_member.id)
     #@company.member_id = current_member.id
   end
 
@@ -67,6 +67,31 @@ before_action :authenticate_admin!, only: :index
  end
 
  def pay
+  # ポイントの料金を変更するときはここを書き換える
+  @pay_arr = [
+    {
+      payment: 70000, 
+      point: 100
+    },
+    {
+      payment: 37500, 
+      point: 50
+    },
+    {
+      payment: 24000, 
+      point: 30
+    },
+    {
+      payment: 9000, 
+      point: 10
+    }
+  ]
+ end
+
+ def get_point
+  get_point = current_member.point + params[:point].to_i
+  current_member.update(point: get_point)
+  return
  end
 
 private

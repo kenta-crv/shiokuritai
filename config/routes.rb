@@ -53,10 +53,10 @@ Rails.application.routes.draw do
   get 'co' => 'top#co'
 
   #企業側アカウント
-  get 'companies/pay' => 'companies#pay'
-
   resources :companies do
     collection do
+      get :pay
+      post :get_point
       post :confirm
       post :thanks
     end

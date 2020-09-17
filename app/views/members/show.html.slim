@@ -16,19 +16,17 @@ br
         th
           | 企業情報編集
         td
-          | 9月25日よりご利用頂けます。
           = link_to "企業情報編集", edit_company_path, class:"btn btn-danger"
       tr
         th
           | 決済画面
         td
-          /= link_to "決済画面", "/companies/pay", class:"btn btn-danger"
-          | 9月25日よりご利用頂けます。
+          = link_to "決済画面", pay_companies_path(reload: true), class:"btn btn-danger"
       tr
         th
           | 残りポイント
-        td
-          | 9月25日よりご利用頂けます。
+        td 
+          | #{@member.point.to_s}ポイント
 
     br
     = link_to "アカウント情報編集", edit_member_registration_path, class:"btn btn-danger"
