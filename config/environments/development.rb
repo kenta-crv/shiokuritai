@@ -9,7 +9,7 @@ Rails.application.configure do
   domain: 'shiokuritai.com',
   port: 587,
   user_name: 'info@shiokuritai.com',
-  password: 'ph4m&bsmd',
+  password: 'i9WkgFU#V',
   authentication: 'plain',
   enable_starttls_auto: true
   }
