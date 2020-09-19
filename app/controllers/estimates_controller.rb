@@ -68,7 +68,8 @@ class EstimatesController < ApplicationController
         # ポイントを減らす
         current_member.update(point: current_member.point - 10)
         room = Room.get_room_in(estimate.user, current_member)
-        Message.create(is_user: true, room_id: room.id, content: 'aaa', estimate_id: estimate.id)
+        content = "お名前: #{estimate.first_name} #{estimate.last_name}（#{estimate.first_kana}#{estimate.last_kana}）\n電話番号: #{estimate.tel}\nメールアドレス: #{estimate.email}\n住所: #{estimate.prefecture.name}#{estimate.city}#{estimate.town}\n相談内容: #{estimate.worries}\n重要な点: #{estimate.importance}\n必要時期: #{estimate.period}ヶ月以内\n相談本文: #{estimate.remarks}"
+        Message.create(is_user: true, room_id: room.id, content: content, estimate_id: estimate.id)
         redirect_to room_messages_path(uri_token: room.uri_token)
       else
         redirect_to member_path(current_member), alert: "ポイントが足りません"
