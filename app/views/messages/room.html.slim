@@ -2,13 +2,20 @@
 .center
 .tops-wrapper
 br
- h2.headline  メッセージボックス
+  h2.headline  メッセージボックス
 .row.center
   .col-sm-12
-   textarea[name="msg" cols="40" rows="4"]
-   br
-   .btn.btn-danger
-    | 送信
+    - if @message.errors.any?
+      strong 入力内容に誤りがあります
+      ul{style="margin: 0 auto;"}
+        - @message.errors.full_messages.each do |message|
+          li= message
+    = form_for @message, url: messages_path(@message) do |f|
+      = f.hidden_field :room_id, value: @room.id
+      = f.hidden_field :is_user, value: current_user.present?
+      = f.text_area :content, cols: 40, rows: 4
+      .message_submit
+        = f.submit "送信", class: "btn btn-danger", style: "width: 60px;"
 
 - if @messages.present?
   .tops-wrapper
