@@ -6,6 +6,9 @@ class MessagesController < ApplicationController
     @messages = room.messages
     @member = room.member
     @user = room.user
+    # 既読にする
+    @read_user = current_user.present? ? current_user : current_member
+    Message.read(room, @read_user)
   end
 
   private

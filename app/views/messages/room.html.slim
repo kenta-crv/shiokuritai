@@ -14,14 +14,34 @@ br
   .tops-wrapper
     hr
     - @messages.each do |message|
-      .row
-        .col-sm-3
-          .post-title
-            - if message.is_user
+      .row.message_container
+        .col-sm-3.d-flex
+          - if message.is_user
+            .post-title style="margin: 0;"
               = @user.user_name
-            - else
+              .message_info
+                span.message_time
+                  = show_time(message)
+                - if current_user.present?
+                  - if message.is_read
+                    span.read_message.is_read
+                      | (既読)
+                  - else
+                    span.read_message.not_read
+                      | (未読)
+          - else
+            .post-title style="margin: 0;"
               = @member.company.first_name
-        .col-sm-9
-          .post-description
-            = message.content
+              .message_info
+                span.message_time
+                  = show_time(message)
+                - if current_member.present?
+                  - if message.is_read
+                    span.read_message.is_read
+                      | (既読)
+                  - else
+                    span.read_message.not_read
+                      | (未読)
+        .col-sm-9.post-description style="margin: 0;"
+          = message.content
       hr
