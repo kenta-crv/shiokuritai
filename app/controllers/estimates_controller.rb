@@ -55,10 +55,19 @@ class EstimatesController < ApplicationController
   end
 
   def apply
-    @estimate = Estimate.find(params[:id])
-    # room取得 estimate.rooms.where(user,member)
-    # もしroomがなければポイントを引く
-    # roomへ
+    estimate = Estimate.find(params[:id])
+    room = estimate.rooms.find_by(member_id: current_member.id)
+
+    if room.blank?
+      # 初めての場合
+      # ポイント減る
+      room = Room.get_room_in(estimate.user, current_member)
+      Message.create(is_user: true, room_id: room.id, content: 'aaa', estimate_id: estimate.id)
+      redirect_to room_messages_path(uri_token: room.uri_token)
+    else
+      # 既に応募済の場合
+      redirect_to room_messages_path(uri_token: room.uri_token)
+    end
   end
 
   private

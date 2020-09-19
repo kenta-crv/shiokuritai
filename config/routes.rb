@@ -85,8 +85,15 @@ Rails.application.routes.draw do
       get :apply
     end
   end
-  #メッセージ
-  get 'messages/sample' => 'messages#sample'
+
+  # メッセージ
+  resources :messages, only: [:create] do
+    collection do
+      # メッセージルーム
+      get :room, path: '/room/:uri_token'
+    end
+  end
+
   #問い合わせフォーム
   get '/contact' => 'contact#index'
   post '/confirm' => 'contact#confirm'

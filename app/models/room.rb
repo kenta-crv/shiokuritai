@@ -15,6 +15,19 @@ class Room < ApplicationRecord
 
   scope :active, -> { where(status: "active_room") }
 
+  def active?
+    status == "active_room"
+  end
+
+  def self.get_room_in(user, member)
+    room = self.find_by(user_id: user.id, member_id: member.id)
+    if room.present?
+      return room
+    else
+      return self.create(user_id: user.id, member_id: member.id)
+    end
+  end
+
   private
     def set_uri_token
       self.uri_token = uri_token.blank? ? generate_uri_token : uri_token
