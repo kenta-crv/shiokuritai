@@ -64,10 +64,15 @@ class EstimatesController < ApplicationController
 
     if room.blank?
       # 初めての場合
-      # ポイント減る
-      room = Room.get_room_in(estimate.user, current_member)
-      Message.create(is_user: true, room_id: room.id, content: 'aaa', estimate_id: estimate.id)
-      redirect_to room_messages_path(uri_token: room.uri_token)
+      if current_member.point >= 10
+        # ポイントを減らす
+        current_member.update(point: current_member.point - 10)
+        room = Room.get_room_in(estimate.user, current_member)
+        Message.create(is_user: true, room_id: room.id, content: 'aaa', estimate_id: estimate.id)
+        redirect_to room_messages_path(uri_token: room.uri_token)
+      else
+        redirect_to member_path(current_member), alert: "ポイントが足りません"
+      end
     else
       # 既に応募済の場合
       redirect_to room_messages_path(uri_token: room.uri_token)
