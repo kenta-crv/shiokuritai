@@ -18,6 +18,8 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
 
     if @message.save
+      MessageMailer.received_email(@message).deliver
+      MessageMailer.send_email(@message).deliver
       redirect_to room_messages_path(uri_token: @room.uri_token), alert: "メッセージを送信しました"
     else
       @messages = @room.messages
