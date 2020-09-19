@@ -17,7 +17,7 @@ class Estimate < ApplicationRecord
   validates :last_kana, {presence: true}  #ナマエ
   validates :tel, {presence: true} #電話番号
   validates :email, {presence: true} #メールアドレス
-  validates :prefecture, {presence: true} #都道府県
+  validates :prefecture_code, {presence: true} #都道府県コード
   validates :city, {presence: true} #市区町村
   validates :town, {presence: true} #URL
   validates :worries, {presence: true} #建物

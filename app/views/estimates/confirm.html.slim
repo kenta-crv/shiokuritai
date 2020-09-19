@@ -51,9 +51,8 @@
         td.arrow_box
           | 都道府県
         td
-          = f.hidden_field :prefecture
-          = @estimate.prefecture
-          | 県
+          = f.hidden_field :prefecture_code
+          = @estimate.prefecture.name
       tr
         td
           strong.label 必須

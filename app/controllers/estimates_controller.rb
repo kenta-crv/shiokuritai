@@ -14,8 +14,9 @@ class EstimatesController < ApplicationController
 
   def thanks
     @estimate = Estimate.new(estimate_params)
+    @estimate.save
     EstimateMailer.received_email(@estimate).deliver
-    #EstimateMailer.client_email(@estimate).deliver
+    # EstimateMailer.client_email(@estimate).deliver
     EstimateMailer.send_email(@estimate).deliver
   end
 
@@ -65,6 +66,7 @@ class EstimatesController < ApplicationController
       :period,
       :remarks,
       :postcode,
+      :prefecture_code, 
       :prefecture_name, 
       :address_city,
       :address_street,
