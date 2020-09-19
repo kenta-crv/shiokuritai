@@ -1,4 +1,7 @@
 class EstimatesController < ApplicationController
+  before_action :authenticate_admin!, only: [:index, :show]
+  before_action :authenticate_user!, only: [:new, :confirm, :thanks]
+
   def index
     @estimates = Estimate.order(created_at: "DESC").page(params[:page])
   end
@@ -14,6 +17,7 @@ class EstimatesController < ApplicationController
 
   def thanks
     @estimate = Estimate.new(estimate_params)
+    @estimate.user_id = current_user.id
     @estimate.save
     EstimateMailer.received_email(@estimate).deliver
     EstimateMailer.client_email(@estimate).deliver
