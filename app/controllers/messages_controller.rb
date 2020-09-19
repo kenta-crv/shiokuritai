@@ -2,7 +2,10 @@ class MessagesController < ApplicationController
   before_action :redirect_room_invalid_user, only: :room
 
   def room
-    
+    room = Room.find_by(uri_token: params[:uri_token])
+    @messages = room.messages
+    @member = room.member
+    @user = room.user
   end
 
   private
