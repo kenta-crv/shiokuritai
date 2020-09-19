@@ -1,4 +1,5 @@
 class EstimatesController < ApplicationController
+  before_action :authenticate_member!, only: :apply
   before_action :authenticate_admin!, only: [:index, :show]
   before_action :authenticate_user!, only: [:new, :confirm, :thanks]
 
@@ -51,6 +52,13 @@ class EstimatesController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def apply
+    @estimate = Estimate.find(params[:id])
+    # room取得 estimate.rooms.where(user,member)
+    # もしroomがなければポイントを引く
+    # roomへ
   end
 
   private

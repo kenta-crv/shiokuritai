@@ -81,6 +81,9 @@ Rails.application.routes.draw do
       post :confirm
       post :thanks
     end
+    member do
+      get :apply
+    end
   end
   #メッセージ
   get 'messages/sample' => 'messages#sample'
