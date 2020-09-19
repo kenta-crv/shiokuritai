@@ -1,5 +1,7 @@
 class Estimate < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
+  has_many :messages, dependent: :nullify
+  has_many :rooms, through: :messages
 
   include JpPrefecture
   jp_prefecture :prefecture_code

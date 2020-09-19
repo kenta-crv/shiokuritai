@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_19_085609) do
+ActiveRecord::Schema.define(version: 2020_09_19_092643) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -193,6 +193,11 @@ ActiveRecord::Schema.define(version: 2020_09_19_085609) do
   create_table "messages", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "room_id"
+    t.integer "estimate_id"
+    t.text "content"
+    t.boolean "is_user"
+    t.boolean "is_read", default: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -213,6 +218,13 @@ ActiveRecord::Schema.define(version: 2020_09_19_085609) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["member_id"], name: "index_questions_on_member_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "member_id", null: false
+    t.text "uri_token", null: false
+    t.integer "status", default: 0, null: false
   end
 
   create_table "stores", force: :cascade do |t|
