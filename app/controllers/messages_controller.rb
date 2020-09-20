@@ -1,7 +1,8 @@
 class MessagesController < ApplicationController
+  before_action :redirect_invalid_user
   def room
     @room = Room.find_by(uri_token: params[:uri_token])
-    redirect_invalid_user(@room)
+
     @messages = @room.messages
     @member = @room.member
     @user = @room.user
@@ -13,14 +14,13 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @room =  Room.find_by(params[:id])
-    redirect_invalid_user(@room)
+    @room = Room.find_by(uri_token: params[:uri_token])
     @message = Message.new(message_params)
 
     if @message.save
       MessageMailer.received_email(@message).deliver
       MessageMailer.send_email(@message).deliver
-      redirect_to room_messages_path(uri_token: @room.uri_token), alert: "メッセージを送信しました"
+      return redirect_to room_messages_path(uri_token: @room.uri_token), alert: "メッセージを送信しました"
     else
       @messages = @room.messages
       @member = @room.member
@@ -34,11 +34,12 @@ class MessagesController < ApplicationController
       params.require(:message).permit(:content, :room_id, :is_user)
     end
 
-    def redirect_invalid_user(room)
-      return render_404 if room.blank? || !room.active?
+    def redirect_invalid_user
+      @room = Room.find_by(uri_token: params[:uri_token])
+      return render_404 if @room.blank? || !@room.active?
 
-      member = room.member
-      user = room.user
+      member = @room.member
+      user = @room.user
       # メンバーでもユーザーでもない時
       if current_member.blank? && current_user.blank?
         return render_404
