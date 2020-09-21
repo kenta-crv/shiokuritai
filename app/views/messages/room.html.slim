@@ -1,0 +1,54 @@
+
+.center
+.tops-wrapper
+br
+  h2.headline  メッセージボックス
+.row.center
+  .col-sm-12
+    - if @message.errors.any?
+      strong 入力内容に誤りがあります
+      ul{style="margin: 0 auto;"}
+        - @message.errors.full_messages.each do |message|
+          li= message
+    = form_for @message, url: messages_path(uri_token: @room.uri_token) do |f|
+      = f.hidden_field :room_id, value: @room.id
+      = f.hidden_field :is_user, value: current_user.present?
+      = f.text_area :content, cols: 40, rows: 4
+      .message_submit
+        = f.submit "送信", class: "btn btn-danger", style: "width: 60px;"
+
+- if @messages.present?
+  .tops-wrapper
+    hr
+    - @messages.each do |message|
+      .row.message_container
+        .col-sm-3.d-flex
+          - if message.is_user
+            .post-title style="margin: 0;"
+              = @user.first_name + " " + @user.last_name
+              .message_info
+                span.message_time
+                  = show_time(message)
+                - if current_user.present?
+                  - if message.is_read
+                    span.read_message.is_read
+                      | (既読)
+                  - else
+                    span.read_message.not_read
+                      | (未読)
+          - else
+            .post-title style="margin: 0;"
+              = @member.company.first_name + "弁護士"
+              .message_info
+                span.message_time
+                  = show_time(message)
+                - if current_member.present?
+                  - if message.is_read
+                    span.read_message.is_read
+                      | (既読)
+                  - else
+                    span.read_message.not_read
+                      | (未読)
+        .col-sm-9.post-description style="margin: 0;"
+          = show_content(message)
+      hr

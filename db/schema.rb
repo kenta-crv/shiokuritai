@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_16_152012) do
+ActiveRecord::Schema.define(version: 2020_09_19_173809) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 2020_09_16_152012) do
     t.string "address_building"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["company_id"], name: "index_estimates_on_company_id"
   end
 
@@ -192,6 +193,11 @@ ActiveRecord::Schema.define(version: 2020_09_16_152012) do
   create_table "messages", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "room_id"
+    t.integer "estimate_id"
+    t.text "content"
+    t.boolean "is_user"
+    t.boolean "is_read", default: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -212,6 +218,13 @@ ActiveRecord::Schema.define(version: 2020_09_16_152012) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["member_id"], name: "index_questions_on_member_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "member_id", null: false
+    t.text "uri_token", null: false
+    t.integer "status", default: 0, null: false
   end
 
   create_table "stores", force: :cascade do |t|
@@ -261,6 +274,8 @@ ActiveRecord::Schema.define(version: 2020_09_16_152012) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       company: 事務所
+      message: メッセージ
     attributes:
       company:
         company: 弁護士事務所名
@@ -21,3 +22,9 @@ ja:
         building: ビル名
         mail: メールアドレス
         url: URL
+      message:
+        content: メッセージ
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
