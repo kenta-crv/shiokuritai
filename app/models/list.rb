@@ -11,7 +11,8 @@ class List < ApplicationRecord
   end
 
   def self.updatable_attributes
-    ["company", #会社名
+    [
+    "company", #会社名
     "name",
     "tel",
     "fax",
