@@ -49,7 +49,7 @@
         td.arrow_box
           | 都道府県
         td
-          = f.text_field :prefecture
+          = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name
       tr
         td
           strong.label 必須
