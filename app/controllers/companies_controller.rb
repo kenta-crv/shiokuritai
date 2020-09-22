@@ -13,10 +13,12 @@ before_action :authenticate_admin!, only: :index
   end
 
   def new
+    return redirect_to :root, alert: "法人は作成されています" if current_member.company.present?
     @company = Company.new(member_id: current_member.id)
   end
 
   def create
+    return redirect_to :root, alert: "法人は作成されています" if current_member.company.present?
     @company = Company.new(company_params)
     @company.member_id = current_member.id
     if params[:back]

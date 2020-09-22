@@ -42,7 +42,11 @@ private
     when Admin
       "/" #先々一覧を見れるアナリティクスへ
     when Member
-      "/companies/new"
+      if resource.company.present?
+        "/"
+      else
+        "/companies/new"
+      end
     when Worker
       "/lists/new"
     else
