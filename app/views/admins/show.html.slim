@@ -13,6 +13,8 @@ br
           | ログインアドレス
         td
           = @admin.email
+    br
+    = link_to "アカウント情報編集", edit_admin_registration_path, class:"btn btn-danger"
     h2.headline
        | 実施件数
     table.company
@@ -44,7 +46,10 @@ br
            = worker.lists.where('updated_at > ?', Time.current.beginning_of_month).where('updated_at < ?', Time.current.end_of_month).count
          td
            = worker.lists.all.count
-
-
-    br
-    = link_to "アカウント情報編集", edit_admin_registration_path, class:"btn btn-danger"
+    h2.headline
+      | メッセージルーム一覧
+    .message_room_index
+      - @rooms.each do |room|
+        - member = room.member
+        - user = room.user
+        = link_to "#{member.company.first_name + "弁護士"} - #{user.first_name + user.last_name}", room_messages_path(uri_token: room.uri_token)

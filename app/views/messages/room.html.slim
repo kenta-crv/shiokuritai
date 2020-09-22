@@ -29,7 +29,7 @@ br
               .message_info
                 span.message_time
                   = show_time(message)
-                - if current_user.present?
+                - if current_user.present? || admin_signed_in?
                   - if message.is_read
                     span.read_message.is_read
                       | (既読)
@@ -42,7 +42,7 @@ br
               .message_info
                 span.message_time
                   = show_time(message)
-                - if current_member.present?
+                - if current_member.present? || admin_signed_in?
                   - if message.is_read
                     span.read_message.is_read
                       | (既読)

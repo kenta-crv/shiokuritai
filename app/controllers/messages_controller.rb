@@ -35,6 +35,7 @@ class MessagesController < ApplicationController
     end
 
     def redirect_invalid_user
+      return if admin_signed_in?
       @room = Room.find_by(uri_token: params[:uri_token])
       return render_404 if @room.blank? || !@room.active?
 
