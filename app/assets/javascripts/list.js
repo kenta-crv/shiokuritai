@@ -1,9 +1,11 @@
 $(function() {
+  // ロード時に県が選ばれているとき
   $('#search_prefecture').each(function() {
     pr_name = $(this).val();
     append_city_option(pr_name);
   })
 
+  // select_boxが選択された時
   $(document).on('change', '#search_prefecture', function() {
     pr_name = $(this).val();
     append_city_option(pr_name);
@@ -11,22 +13,28 @@ $(function() {
 
   function append_city_option(pr_name) {
     if (pr_name == "") {
+      // 選択肢の入れ替え
       $('#search_city option').remove();
-      let $option_tag = $('<option>').val("").text("選択して下さい");
+      let $option_tag = $('<option>').val("").text("選択してください");
       $('#search_city').append($option_tag);
     } else {
       let pr_code = get_pr_code(pr_name);
+      // APIでcityを取得
       $.ajax({
         type: "GET",
         url: `https://www.land.mlit.go.jp/webland/api/CitySearch?area=${pr_code}`
       }).done(function (json) {
-        data = json['data']
-        city_list = [...data].map(value => value.name);
+        let data = json['data']
+        let city_list = [...data].map(value => value.name);
+        // 選択肢の入れ替え
         $('#search_city option').remove();
+        let $option_tag = $('<option>').val("").text("選択してください");
+        $('#search_city').append($option_tag);
         city_list.forEach(function (name) {
           let $option_tag = $('<option>').val(name).text(name);
           $('#search_city').append($option_tag);
         });
+        // ロード時に1回だけ，クエリにあるcityを選択する
         if (!$('#search_city').hasClass('fire')) {
           let path_search = location.search;
           let selected_city = decodeURI(path_search.match(/city_or_town_cont%.*/g)[0].replace('city_or_town_cont%5D=', '').replace('&commit=%E6%A4%9C%E7%B4%A2',''));
