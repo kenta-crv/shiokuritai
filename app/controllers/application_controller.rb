@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include SessionHelper
   before_action :set_host
 
   # 例外処理
