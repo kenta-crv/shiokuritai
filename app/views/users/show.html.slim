@@ -1,8 +1,9 @@
-.beige-wrapper
-  .heading
-    h2
+br
+br
+.tops-wrapper
+    h2.headline
       | アカウント情報
-    table
+    table.company
       colgroup
         col[width="40%"]
         col[width="60%"]
@@ -14,4 +15,5 @@
           = @user.email
 
     br
-    = link_to "アカウント情報編集", edit_user_registration_path, class:"btn btn-danger"
+    .center
+     = link_to "アカウント情報編集", edit_user_registration_path, class:"btn btn-danger"
