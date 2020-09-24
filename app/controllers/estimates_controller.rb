@@ -136,6 +136,7 @@ class EstimatesController < ApplicationController
       email: estimate_params[:email],
       confirmed_at: Time.current
     )
+    EstimateMailer.regist_user(user).deliver
     sign_in user
   end
 end
