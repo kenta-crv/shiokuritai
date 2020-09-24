@@ -13,6 +13,8 @@ br
           | ログインアドレス
         td
           = @admin.email
+    br
+    = link_to "アカウント情報編集", edit_admin_registration_path, class:"btn btn-danger"
     h2.headline
        | 実施件数
     table.company
@@ -32,19 +34,23 @@ br
            | 今月の実施件数
          th
            | 総合件数
-       tr
        - @workers.each do |worker|
-         th
-           = worker.user_name
-         td
-           = worker.lists.where('updated_at > ?', Time.current.beginning_of_day).where('updated_at < ?', Time.current.end_of_day).count
-         td
-           = worker.lists.where('updated_at > ?', Time.current.beginning_of_week).where('updated_at < ?', Time.current.end_of_week).count
-         td
-           = worker.lists.where('updated_at > ?', Time.current.beginning_of_month).where('updated_at < ?', Time.current.end_of_month).count
-         td
-           = worker.lists.all.count
-
-
-    br
-    = link_to "アカウント情報編集", edit_admin_registration_path, class:"btn btn-danger"
+        tr
+          th
+            = worker.user_name
+          td
+            = worker.lists.where('updated_at > ?', Time.current.beginning_of_day).where('updated_at < ?', Time.current.end_of_day).count
+          td
+            = worker.lists.where('updated_at > ?', Time.current.beginning_of_week).where('updated_at < ?', Time.current.end_of_week).count
+          td
+            = worker.lists.where('updated_at > ?', Time.current.beginning_of_month).where('updated_at < ?', Time.current.end_of_month).count
+          td
+            = worker.lists.all.count
+    h2.headline
+      | メッセージルーム一覧
+    .message_room_index
+      - @rooms.each do |room|
+        - member = room.member
+        - user = room.user
+        .message_room_link style="margin-bottom: 20px;"
+          = link_to "#{member.company.first_name + "弁護士"} - #{user.user_name}", room_messages_path(uri_token: room.uri_token)

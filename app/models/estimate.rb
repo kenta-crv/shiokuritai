@@ -1,4 +1,7 @@
 class Estimate < ApplicationRecord
+  attr_accessor :user_name
+  attr_accessor :user_password
+
   belongs_to :user, optional: true
   has_many :messages, dependent: :nullify
   has_many :rooms, through: :messages
