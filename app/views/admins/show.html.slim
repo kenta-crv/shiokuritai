@@ -53,4 +53,4 @@ br
         - member = room.member
         - user = room.user
         .message_room_link style="margin-bottom: 20px;"
-          = link_to "#{member.company.first_name + "弁護士"} - #{user.first_name + user.last_name}", room_messages_path(uri_token: room.uri_token)
+          = link_to "#{member.company.first_name + "弁護士"} - #{user.user_name}", room_messages_path(uri_token: room.uri_token)

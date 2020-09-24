@@ -25,7 +25,7 @@ br
         .col-sm-3.d-flex
           - if message.is_user
             .post-title style="margin: 0;"
-              = @user.first_name + " " + @user.last_name
+              = @user.user_name
               .message_info
                 span.message_time
                   = show_time(message)

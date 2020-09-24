@@ -19,10 +19,6 @@ class EstimatesController < ApplicationController
   def thanks
     @estimate = Estimate.new(estimate_params)
     @estimate.user_id = current_user.id
-    current_user.update(
-      first_name: estimate_params[:first_name], 
-      last_name: estimate_params[:last_name]
-    )
     @estimate.save
     EstimateMailer.received_email(@estimate).deliver
     EstimateMailer.client_email(@estimate).deliver
