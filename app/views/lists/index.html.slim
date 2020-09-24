@@ -17,12 +17,17 @@ h2.headline
        th
          | 事務所名
        td
-         = f.search_field :company_cont, type: "text", placeholder: "事務所名"
+         = f.search_field :company_cont, type: "text", placeholder: "事務所名", class: 'form-control'
      tr
        th
          | 都道府県
-       td.
-         = f.search_field :prefecture_cont, type: "text", placeholder: "都道府県"
+       td
+         = f.collection_select :prefecture_cont, JpPrefecture::Prefecture.all, :name, :name, {include_blank: '選択してください'}, {class: 'form-control', id: 'search_prefecture'}
+     tr
+       th
+         | 市区町村
+       td
+         = f.collection_select :city_or_town_cont, [], :name, :name, {include_blank: '選択してください'}, {class: 'form-control', id: 'search_city'}
      tr.center
        td[colspan="4"]
          = f.submit '検索', class:"btn btn-danger"
