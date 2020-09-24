@@ -1,10 +1,10 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.action_mailer.default_url_options = { :host => 'shiokuritai.com' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.raise_delivery_errors = true
 
-  ActionMailer::Base.delivery_method = :letter_opener_web
-  # ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.delivery_method = :letter_opener_web
+  ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
   address: 'smtp3.gmoserver.jp',
   domain: 'shiokuritai.com',

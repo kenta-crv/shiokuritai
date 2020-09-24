@@ -18,7 +18,7 @@ class EstimateMailer < ActionMailer::Base
 
   def client_email(estimate)
     @estimate = estimate
-    mail to: Company.all.map{|company| company.mail}
+    mail bcc: Company.all.map{|company| company.mail}
     mail(subject: '士送隊より見積り依頼が届きました') do |format|
       format.text
     end

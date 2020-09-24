@@ -1,7 +1,7 @@
 class EstimatesController < ApplicationController
   before_action :authenticate_member!, only: :apply
   before_action :authenticate_admin!, only: [:index, :show]
-  before_action :authenticate_user!, only: [:new, :confirm, :thanks]
+  # before_action :authenticate_user!, only: [:new, :confirm, :thanks]
 
   def index
     @estimates = Estimate.order(created_at: "DESC").page(params[:page])
@@ -13,16 +13,13 @@ class EstimatesController < ApplicationController
 
   def confirm
     @estimate = Estimate.new(estimate_params)
-    render :new if @estimate.invalid?
+    render :new if @estimate.invalid? || invalid_user
   end
 
   def thanks
     @estimate = Estimate.new(estimate_params)
+    create_user if current_user.blank?
     @estimate.user_id = current_user.id
-    current_user.update(
-      first_name: estimate_params[:first_name], 
-      last_name: estimate_params[:last_name]
-    )
     @estimate.save
     EstimateMailer.received_email(@estimate).deliver
     EstimateMailer.client_email(@estimate).deliver
@@ -101,7 +98,40 @@ class EstimatesController < ApplicationController
       :prefecture_name, 
       :address_city,
       :address_street,
-      :address_building
+      :address_building,
+      :user_name,
+      :user_password
     )
+  end
+
+  def invalid_user
+    # userがいるか
+    if current_user
+      return false
+    end
+    # nameが入っているか
+    if estimate_params[:user_name].blank? 
+      return true
+    end
+    # passwordが入っているか
+    if estimate_params[:user_password].blank?
+      return true
+    end
+    # 同じメールアドレスの人がいるか
+    user = User.find_by(email: estimate_params[:email])
+    if user.present?
+      return true
+    end
+    return false
+  end
+
+  def create_user
+    user = User.create(
+      user_name: estimate_params[:user_name], 
+      password: estimate_params[:user_password], 
+      email: estimate_params[:email],
+      confirmed_at: Time.current
+    )
+    sign_in user
   end
 end

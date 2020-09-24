@@ -5,10 +5,10 @@
 相談を受託する場合、上記URLをクリックしてください。
 
 --------------------------
-お名前（フリガナ）: ********（********）
-電話番号: ********
-メールアドレス: ********
-住所: <%= @estimate.prefecture.name %>****************
+お名前: <%= @estimate.first_name %><%= @estimate.last_name %>（<%= @estimate.first_kana %><%= @estimate.last_kana %>）
+電話番号: <%= @estimate.tel %>
+メールアドレス: <%= @estimate.email %>
+住所: <%= @estimate.prefecture.name %><%= @estimate.city %><%= @estimate.town %>
 相談内容: <%= @estimate.worries %>
 重要な点: <%= @estimate.importance %>
 必要時期: <%= @estimate.period %>ヶ月以内

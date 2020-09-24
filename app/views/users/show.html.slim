@@ -1,9 +1,8 @@
-br
-br
-.tops-wrapper
-    h2.headline
-      | アカウント情報
-    table.company
+.beige-wrapper
+  h2.headline style="margin-bottom: 0;"
+    | アカウント情報
+  .user_show_container style="margin-top: 10px;"
+    table
       colgroup
         col[width="40%"]
         col[width="60%"]
@@ -13,7 +12,15 @@ br
           | ログインアドレス
         td
           = @user.email
-
     br
-    .center
-     = link_to "アカウント情報編集", edit_user_registration_path, class:"btn btn-danger"
+    = link_to "アカウント情報編集", edit_user_registration_path, class:"btn btn-danger"
+  - if @rooms.present?
+    h2.headline
+      | メッセージルーム一覧
+    .user_show_container
+      .message_room_index
+        - @rooms.each do |room|
+          - member = room.member
+          - user = room.user
+          .message_room_link style="margin-bottom: 20px;"
+            = link_to "#{member.company.first_name + "弁護士"} - #{user.user_name}", room_messages_path(uri_token: room.uri_token)
