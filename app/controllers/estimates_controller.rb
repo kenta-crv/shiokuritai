@@ -13,7 +13,7 @@ class EstimatesController < ApplicationController
 
   def confirm
     @estimate = Estimate.new(estimate_params)
-    render :new if @estimate.invalid? || invalid_user
+    render :new if @estimate.invalid? || invalid_user || double_email
   end
 
   def thanks
@@ -117,6 +117,10 @@ class EstimatesController < ApplicationController
     if estimate_params[:user_password].blank?
       return true
     end
+    return false
+  end
+
+  def double_email
     # 同じメールアドレスの人がいるか
     user = User.find_by(email: estimate_params[:email])
     if user.present?
