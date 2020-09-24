@@ -126,7 +126,7 @@
           td.arrow_box
             | パスワード(6文字以上)
           td
-            = f.password_field :user_password, autocomplete: "off"
+            = f.password_field :user_password, autocomplete: "off", onchange: "if ($('#estimate_user_password').val().length < 6) { alert('パスワードは6文字以上入力して下さい'); }"
       tr
         td colspan="3"
           = f.submit "確認画面"
