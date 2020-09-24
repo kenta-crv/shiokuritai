@@ -23,4 +23,12 @@ class EstimateMailer < ActionMailer::Base
       format.text
     end
   end
+
+  def regist_user(user)
+    @user = user
+    mail to: @user.email
+    mail(subject: '『士送隊』に会員登録頂きありがとう御座います') do |format|
+      format.text
+    end
+  end
 end

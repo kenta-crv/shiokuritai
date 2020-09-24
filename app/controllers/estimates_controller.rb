@@ -13,7 +13,7 @@ class EstimatesController < ApplicationController
 
   def confirm
     @estimate = Estimate.new(estimate_params)
-    render :new if @estimate.invalid? || invalid_user
+    render :new if @estimate.invalid? || invalid_user || double_email
   end
 
   def thanks
@@ -67,7 +67,7 @@ class EstimatesController < ApplicationController
         room = Room.get_room_in(estimate.user, current_member)
         content = "お名前: #{estimate.first_name} #{estimate.last_name}（#{estimate.first_kana}#{estimate.last_kana}）\n電話番号: #{estimate.tel}\nメールアドレス: #{estimate.email}\n住所: #{estimate.prefecture.name}#{estimate.city}#{estimate.town}\n相談内容: #{estimate.worries}\n重要な点: #{estimate.importance}\n必要時期: #{estimate.period}ヶ月以内\n相談本文: #{estimate.remarks}"
         Message.create(is_user: true, room_id: room.id, content: content, estimate_id: estimate.id)
-        redirect_to room_messages_path(uri_token: room.uri_token)
+        redirect_to room_messages_path(uri_token: room.uri_token), alert: "10ポイント消費しました"
       else
         redirect_to member_path(current_member), alert: "ポイントが足りません"
       end
@@ -117,6 +117,10 @@ class EstimatesController < ApplicationController
     if estimate_params[:user_password].blank?
       return true
     end
+    return false
+  end
+
+  def double_email
     # 同じメールアドレスの人がいるか
     user = User.find_by(email: estimate_params[:email])
     if user.present?
@@ -132,6 +136,7 @@ class EstimatesController < ApplicationController
       email: estimate_params[:email],
       confirmed_at: Time.current
     )
+    EstimateMailer.regist_user(user).deliver
     sign_in user
   end
 end
