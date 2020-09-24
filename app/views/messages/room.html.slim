@@ -52,3 +52,8 @@ br
         .col-sm-9.post-description style="margin: 0;"
           = show_content(message)
       hr
+.action_container style="margin: 20px 0 60px; text-align: center;"
+  - if current_member.present?
+    = link_to "マイページに戻る", member_path(current_member.id), class:"btn btn-danger"
+  - elsif current_user.present?
+    = link_to "マイページに戻る", user_path(current_user.id), class:"btn btn-danger"
