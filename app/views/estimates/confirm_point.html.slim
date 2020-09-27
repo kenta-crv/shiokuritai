@@ -1,0 +1,12 @@
+.beige-wrapper
+  h2.headline style="margin-bottom: 0;"
+    | ポイントの確認
+  .confirm_point_container
+    p 現在、#{current_member.company.company}が保有するポイントは#{current_member.point}ポイントです。
+    p 「メッセージ開始」をクリックすると10ポイント消費し、相談者とのやりとりを開始できます。
+    - if current_member.point >= 10
+      = link_to "メッセージ開始", apply_estimate_path(@estimate), method: :post, class: "btn btn-danger"
+    - else
+      = link_to "メッセージ開始", "javascript:void(0)", class: "btn btn-danger", data: { confirm: 'ポイントが不足しています。ポイントを追加してください。' }
+    .pay_point_link style="margin-top: 30px;"
+      p ※ポイントの追加は#{link_to "こちら", pay_companies_path}
