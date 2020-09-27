@@ -1,10 +1,4 @@
 - set_meta_tags noindex: true
-
-
-
-= link_to "https://shiokuritai.com"+estimate_path(@estimate), estimate_path(@estimate)
-br
-br
 .center
 .tops-wrapper
 br
@@ -65,3 +59,16 @@ br
           | 相談本文
         td
            = @estimate.remarks
+.actions_container style="text-align: center; margin-bottom: 30px;"
+  = link_to "編集する", edit_estimate_path(@estimate), class: "btn btn-danger"
+  - if @estimate.rooms.blank?
+    = link_to "削除する", estimate_path(@estimate), class: "btn btn-secondary", method: :delete, data: { confirm: '本当に削除しますか？' }, style: "margin-left: 10px;"
+  - else
+    = link_to "削除する", "javascript:void(0)", class: "btn btn-secondary", data: { confirm: 'やりとりが始まっているので削除できません' }, style: "margin-left: 10px;"
+  - if !@estimate.send_mail_flag
+    = link_to "送信する", send_mail_estimate_path(@estimate), class: "btn btn-primary", method: :post, data: { confirm: '登録中の全企業に送信します。よろしいですか？' }, style: "margin-left: 10px;"
+  - else
+    = link_to "送信済", "javascript:void(0)", class: "btn btn-primary", style: "margin-left: 10px;"
+.back_link_container style='margin: 0 0 50px 40px;'
+  hr
+  = link_to "一覧に戻る", estimates_path
