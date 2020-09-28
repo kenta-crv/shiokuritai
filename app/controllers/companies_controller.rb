@@ -72,19 +72,19 @@ before_action :authenticate_admin!, only: :index
   # ポイントの料金を変更するときはここを書き換える
   @pay_arr = [
     {
-      payment: 70000, 
+      payment: 70000,
       point: 100
     },
     {
-      payment: 37500, 
+      payment: 37500,
       point: 50
     },
     {
-      payment: 24000, 
+      payment: 24000,
       point: 30
     },
     {
-      payment: 9000, 
+      payment: 9000,
       point: 10
     }
   ]

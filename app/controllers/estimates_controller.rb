@@ -94,8 +94,8 @@ class EstimatesController < ApplicationController
       :period,
       :remarks,
       :postcode,
-      :prefecture_code, 
-      :prefecture_name, 
+      :prefecture_code,
+      :prefecture_name,
       :address_city,
       :address_street,
       :address_building,
@@ -110,7 +110,7 @@ class EstimatesController < ApplicationController
       return false
     end
     # nameが入っているか
-    if estimate_params[:user_name].blank? 
+    if estimate_params[:user_name].blank?
       return true
     end
     # passwordが入っているか
@@ -131,8 +131,8 @@ class EstimatesController < ApplicationController
 
   def create_user
     user = User.create(
-      user_name: estimate_params[:user_name], 
-      password: estimate_params[:user_password], 
+      user_name: estimate_params[:user_name],
+      password: estimate_params[:user_password],
       email: estimate_params[:email],
       confirmed_at: Time.current
     )
