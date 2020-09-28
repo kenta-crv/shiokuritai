@@ -1,132 +1,131 @@
-=  form_for @estimate, url: confirm_estimates_path(@estimate) do |f|
-  - if @estimate.errors.any?
-    strong 入力内容にエラーがあります
-    ul
-      - @estimate.errors.each do |attr, msg|
-        li= msg
+- if @estimate.errors.any?
+  strong 入力内容にエラーがあります
+  ul
+    - @estimate.errors.each do |attr, msg|
+      li= msg
 
-    br
-  table.company
-      colgroup
-        col width="10%"
-        col width="20%"
-        col width="70%"
-      tr
-        td
-          strong.label 必須
-        td.arrow_box
-          | 氏名
-        td
-          = f.text_field :first_name, class:"harf"
-          = f.text_field :last_name, class:"harf"
-          br
-      tr
-        td
-          strong.label 必須
-        td.arrow_box
-          | シメイ
-        td
-          = f.text_field :first_kana, class:"harf"
-          = f.text_field :last_kana, class:"harf"
-          br
-      tr
-        td
-          strong.label 必須
-        td.arrow_box
-          | 電話番号
-        td
-          = f.text_field :tel
-      tr
-        td
-          strong.label 必須
-        td.arrow_box
-          | メールアドレス
-        td
-          = f.email_field :email
-      tr
-        td
-          strong.label 必須
-        td.arrow_box
-          | 都道府県
-        td
-          = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name
-      tr
-        td
-          strong.label 必須
-        td.arrow_box
-          | 市区町村
-        td
-          = f.text_field :city
-      tr
-        td
-          strong.label 必須
-        td.arrow_box
-          | 番地以降
-        td
-          = f.text_field :town
-      tr
-        td
-          strong.label 必須
-        td.arrow_box
-          | 悩んでいる点
-        td
-         = f.select(:worries,[\
-           ["選択してください","選択してください"],\
-           ["離婚トラブル","離婚トラブル"],\
-           ["養育費トラブル","養育費トラブル"],\
-           ["財産分与トラブル","財産分与トラブル"],
-           ["慰謝料請求トラブル","慰謝料請求トラブル"],
-           ["その他","その他"],
+  br
+table.company
+    colgroup
+      col width="10%"
+      col width="20%"
+      col width="70%"
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | 氏名
+      td
+        = f.text_field :first_name, class:"harf"
+        = f.text_field :last_name, class:"harf"
+        br
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | シメイ
+      td
+        = f.text_field :first_kana, class:"harf"
+        = f.text_field :last_kana, class:"harf"
+        br
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | 電話番号
+      td
+        = f.text_field :tel
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | メールアドレス
+      td
+        = f.email_field :email
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | 都道府県
+      td
+        = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | 市区町村
+      td
+        = f.text_field :city
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | 番地以降
+      td
+        = f.text_field :town
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | 悩んでいる点
+      td
+        = f.select(:worries,[\
+          ["選択してください","選択してください"],\
+          ["離婚トラブル","離婚トラブル"],\
+          ["養育費トラブル","養育費トラブル"],\
+          ["財産分与トラブル","財産分与トラブル"],
+          ["慰謝料請求トラブル","慰謝料請求トラブル"],
+          ["その他","その他"],
+        ])
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | 重視する点
+      td
+        = f.select(:importance,[\
+          ["選択してください","選択してください"],\
+          ["親身な対応","親身な対応"],\
+          ["費用面","費用面"],\
+          ["実績がある","実績がある"],
+          ["解決出来る見通し","解決出来る見通し"],
+          ["その他","その他"],
           ])
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | 導入時期
+      td
+        = f.select(:period,[\
+            ["選択する","選択する"],\
+            ["1ヶ月以内","1ヶ月以内"],\
+            ["3ヶ月以内","3ヶ月以内"],\
+            ["6ヶ月以内","6ヶ月以内"],
+            ["未定","未定"],
+        ])
+    tr
+      td
+        strong.label 必須
+      td.arrow_box
+        | 相談本文
+      td
+        = f.text_area :remarks
+    - if current_user.blank? && current_admin.blank?
       tr
         td
           strong.label 必須
         td.arrow_box
-          | 重視する点
+          | ユーザー名
         td
-          = f.select(:importance,[\
-            ["選択してください","選択してください"],\
-            ["親身な対応","親身な対応"],\
-            ["費用面","費用面"],\
-            ["実績がある","実績がある"],
-            ["解決出来る見通し","解決出来る見通し"],
-            ["その他","その他"],
-           ])
+          = f.text_field :user_name
       tr
         td
           strong.label 必須
         td.arrow_box
-          | 導入時期
+          | パスワード(6文字以上)
         td
-          = f.select(:period,[\
-             ["選択する","選択する"],\
-             ["1ヶ月以内","1ヶ月以内"],\
-             ["3ヶ月以内","3ヶ月以内"],\
-             ["6ヶ月以内","6ヶ月以内"],
-             ["未定","未定"],
-          ])
-      tr
-        td
-          strong.label 必須
-        td.arrow_box
-          | 相談本文
-        td
-          = f.text_area :remarks
-      - if current_user.blank?
-        tr
-          td
-            strong.label 必須
-          td.arrow_box
-            | ユーザー名
-          td
-            = f.text_field :user_name
-        tr
-          td
-            strong.label 必須
-          td.arrow_box
-            | パスワード(6文字以上)
-          td
-            = f.password_field :user_password, autocomplete: "off", onchange: "if ($('#estimate_user_password').val().length < 6) { alert('パスワードは6文字以上入力して下さい'); }"
-      tr
-        td colspan="3"
-          = f.submit "確認画面"
+          = f.password_field :user_password, autocomplete: "off", onchange: "if ($('#estimate_user_password').val().length < 6) { alert('パスワードは6文字以上入力して下さい'); }"
+    tr
+      td colspan="3"
+        = f.submit "#{btn_name}"

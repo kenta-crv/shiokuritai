@@ -82,7 +82,9 @@ Rails.application.routes.draw do
       post :thanks
     end
     member do
-      get :apply
+      post :send_mail
+      get :confirm_point
+      post :apply
     end
   end
 

@@ -9,12 +9,19 @@
      th 重要な点
      th 期間
      th 相談内容
+     th 詳細
+     th メール送信
    - @estimates.each do |estimate|
     tr
-     td = link_to estimate.worries, estimate_path(estimate), class:"store"
-     td = link_to estimate.importance
-     td = link_to estimate.period
-     td = link_to estimate.remarks
+     td = estimate.worries
+     td = estimate.importance
+     td = estimate.period
+     td = estimate.remarks
+     td = link_to "詳細", estimate_path(estimate), class:"store"
+     - if estimate.send_mail_flag == true
+      td style="color: green" 送信済
+     - else
+      td style="color: red" 未送信
   br
     hr.line
     br
