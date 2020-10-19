@@ -73,18 +73,22 @@ before_action :authenticate_admin!, only: :index
   @pay_arr = [
     {
       payment: 70000, 
+      tax: 70000 * 0.1, 
       point: 100
     },
     {
       payment: 37500, 
+      tax: 37500 * 0.1, 
       point: 50
     },
     {
       payment: 24000, 
+      tax: 24000 * 0.1, 
       point: 30
     },
     {
       payment: 9000, 
+      tax: 9000 * 0.1, 
       point: 10
     }
   ]
