@@ -6,7 +6,8 @@ class List < ApplicationRecord
     CSV.foreach(file.path, headers: true) do |row|
       list = find_by(id: row["id"]) || new
       list.attributes = row.to_hash.slice(*updatable_attributes)
-      list.save!
+      next if self.where(company: list.company).count > 0
+      customer.save!
     end
   end
 
