@@ -50,9 +50,9 @@ h2.headline
        = list.town
        = list.chome
        = list.building
-      - if admin_signed_in?
-       = link_to "編集", edit_list_path(list)
-       = link_to "削除", list_path(list) ,method: :delete,  data: { confirm: '本当に削除しますか？'}
+      - if worker_signed_in?
+       = link_to "編集", edit_list_path(list), class:"btn btn-default"
+       = link_to "削除", list_path(list) ,method: :delete,  data: { confirm: '本当に削除しますか？'}, class:"btn btn-default"
     .col-xs-1
     hr.line
   br

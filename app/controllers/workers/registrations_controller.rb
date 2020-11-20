@@ -14,15 +14,18 @@ class Workers::RegistrationsController < Devise::RegistrationsController
     "/lists/new"
   end
 
+  def create
+    super do                                             # 他はdeviseの機能をそのまま流用する
+      resource.update(confirmed_at: Time .now.utc)       # Welcomeメールを送信した上で、skip_confirmation!と同一処理を行い自動で認証クローズさせる
+    end
+  end
+
   private
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:user_name])
     devise_parameter_sanitizer.permit(:account_update, keys: [:user_name])#追記
   end
   # POST /resource
-  # def create
-  #   super
-  # end
 
   # GET /resource/edit
   # def edit

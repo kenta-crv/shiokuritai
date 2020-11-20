@@ -15,6 +15,7 @@ class ContactController < ApplicationController
 
   def thanks
     @contact = Contact.new(contact_params)
+    @contact.save
     ContactMailer.received_email(@contact).deliver
     ContactMailer.send_email(@contact).deliver
   end
